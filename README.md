@@ -26,10 +26,10 @@ docker create \
   
 ### Parameters
 
---net=host - Shares host networking with container, required.
--e TVH_TUNER_COUNT
--e TVH_PROFILE
--e TVH_URL
+* --net=host - Shares host networking with container, required.
+* -e TVH_TUNER_COUNT
+* -e TVH_PROFILE
+* -e TVH_URL
 
 
 Setting up the application
