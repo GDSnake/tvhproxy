@@ -13,7 +13,7 @@ Based to chvb/docker-tvhproxy and kiall/docker-tvhProxy.
 
 Works in Raspberry Pi Zero
 
-Usage
+### Usage
 ```
 docker create \
   --name tvhproxy \
@@ -24,7 +24,7 @@ docker create \
 54cr4m3n70/tvhproxy
 ```
   
-Parameters
+### Parameters
 
 --net=host - Shares host networking with container, required.
 -e TVH_TUNER_COUNT
