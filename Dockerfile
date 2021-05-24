@@ -32,7 +32,7 @@ RUN apk del --purge build-dependencies
 RUN rm -rf /var/cache/apk/* /tmp/* 
 
 WORKDIR /opt
-RUN git clone https://github.com/jkaberg/tvhProxy.git
+RUN git clone https://github.com/GDSnake/tvhProxy-1.git
 RUN chmod +x /opt/tvhProxy/tvhProxy.py
 WORKDIR tvhProxy
 CMD ["python","tvhProxy.py"]
