@@ -1,38 +1,25 @@
-FROM arm32v6/alpine
+FROM ubuntu:20.04
 
-# Install core packages
-RUN apk add --no-cache \
-        ca-certificates \
-        coreutils \
-        tzdata 
+RUN apt update && apt install --no-install-recommends --yes git python3 python3-pip
 
-# Install build packages
-RUN apk add --no-cache --virtual=build-dependencies \
-	build-base
+RUN update-alternatives --install "/usr/bin/python" "python" "$(which python3)" 1
 
-# Create user
-RUN adduser -H -D -S -u 99 -G users -s /sbin/nologin duser 
-
-# Install runtime packages
-RUN apk add --no-cache \
-        python \
-	git \
-	uwsgi \
-	uwsgi-python \
-	python-dev \
-        py2-pip
-
-RUN pip2 install flask \
-	requests \
-	gevent 
-
-
-# Cleanup
-RUN apk del --purge build-dependencies
-RUN rm -rf /var/cache/apk/* /tmp/* 
+EXPOSE 5004
 
 WORKDIR /opt
 RUN git clone https://github.com/GDSnake/tvhProxyMain.git
-RUN chmod +x /opt/tvhProxy/tvhProxy.py
-WORKDIR tvhProxy
+RUN chmod +x /opt/tvhProxyMain/tvhProxy.py
+
+WORKDIR /opt/tvhProxyMain
+
+RUN rm -rf /var/cache/apt/* /tmp/* /var/lib/{apt,dpkg,cache,log} 
+
+RUN apt-get clean autoclean
+RUN apt-get autoremove --yes
+
+
+RUN pip3 install setuptools wheel
+
+RUN pip3 install -r requirements.txt
+
 CMD ["python","tvhProxy.py"]
